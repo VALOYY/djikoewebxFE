@@ -62,8 +62,8 @@ const AdminPesanan = () => {
 
       try {
         const ordersData = await getPesanan();
-        setOrders(ordersData);
-        setFilteredOrders(ordersData);
+        setOrders(ordersData || []);
+        setFilteredOrders(ordersData || []);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -146,7 +146,7 @@ const AdminPesanan = () => {
   };
 
   const getStatusClass = (status) => {
-    const baseClasses = 'text-sm p-2 rounded-lg border shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition';
+    const baseClasses = 'text-xs sm:text-sm p-1 sm:p-2 rounded-lg border shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition';
     if (status === 'Menunggu') {
       return `${baseClasses} bg-yellow-200 text-white border-yellow-300`;
     } else if (status === 'Diproses') {
@@ -159,17 +159,17 @@ const AdminPesanan = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 w-full overflow-x-hidden">
       <NavbarAdmin user={user} />
-      <div className="max-w-7xl mx-auto p-6 flex flex-col flex-grow">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-extrabold text-gray-800 tracking-tight">
+      <div className="max-w-full sm:max-w-7xl mx-auto p-4 sm:p-6 flex flex-col flex-grow">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 space-y-4 sm:space-y-0">
+          <h1 className="text-xl sm:text-3xl font-extrabold text-gray-800 tracking-tight">
             Manajemen Pesanan
           </h1>
-          <div className="flex items-center space-x-4">
-            <label className="text-gray-700 font-medium">Filter Status:</label>
+          <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto">
+            <label className="text-gray-700 font-medium text-sm sm:text-base">Filter Status:</label>
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="bg-white border border-gray-300 text-gray-700 p-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition"
+              className="bg-white border border-gray-300 text-gray-700 text-xs sm:text-sm p-1 sm:p-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition w-full sm:w-auto"
             >
               <option value="Semua">Semua</option>
               <option value="Menunggu">Menunggu</option>
@@ -181,59 +181,59 @@ const AdminPesanan = () => {
 
         {notification.message && (
           <div
-            className={`mb-6 p-4 rounded-lg text-white text-center shadow-lg transform transition-opacity duration-500 ease-in-out ${
+            className={`mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg text-white text-center shadow-lg transform transition-opacity duration-500 ease-in-out ${
               notification.type === 'success' ? 'bg-green-600' : 'bg-red-600'
-            } animate-fade-in`}
+            } animate-fade-in text-xs sm:text-sm`}
           >
             {notification.message}
           </div>
         )}
 
         {loading ? (
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6">
             {[...Array(3)].map((_, index) => (
               <div
                 key={index}
-                className="animate-pulse bg-white rounded-xl shadow-lg p-6"
+                className="animate-pulse bg-white rounded-xl shadow-lg p-4 sm:p-6"
               >
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
-                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div className="h-3 sm:h-4 bg-gray-200 rounded w-3/4 mb-3 sm:mb-4"></div>
+                <div className="h-3 sm:h-4 bg-gray-200 rounded w-1/2"></div>
               </div>
             ))}
           </div>
         ) : (
           <div className="w-full bg-white rounded-xl shadow-lg overflow-hidden">
             {filteredOrders.length === 0 ? (
-              <p className="text-gray-600 text-center p-6">
+              <p className="text-gray-600 text-center p-4 sm:p-6 text-sm sm:text-base">
                 Belum ada pesanan tersedia.
               </p>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
+              <div className="w-full overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200 text-xs sm:text-sm">
                   <thead className="bg-amber-600">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-white uppercase tracking-wider min-w-[120px] sm:min-w-[150px]">
                         Pesanan
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-white uppercase tracking-wider min-w-[150px] sm:min-w-[200px]">
                         Alamat
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-white uppercase tracking-wider min-w-[100px] sm:min-w-[150px]">
                         No Telepon
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-white uppercase tracking-wider min-w-[100px] sm:min-w-[150px]">
                         Produk
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-white uppercase tracking-wider min-w-[100px] sm:min-w-[150px]">
                         Total
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-white uppercase tracking-wider min-w-[120px] sm:min-w-[200px]">
                         Bukti Pembayaran
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-white uppercase tracking-wider min-w-[100px] sm:min-w-[150px]">
                         Status
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                      <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-white uppercase tracking-wider min-w-[100px] sm:min-w-[150px]">
                         Aksi
                       </th>
                     </tr>
@@ -244,44 +244,44 @@ const AdminPesanan = () => {
                         key={order.id}
                         className="hover:bg-amber-50 transition duration-200"
                       >
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
-                            {order.namaUser}
+                        <td className="px-2 sm:px-4 py-2 sm:py-4 whitespace-nowrap">
+                          <div className="text-xs sm:text-sm font-medium text-gray-900">
+                            {order.namaUser || '—'}
                           </div>
                           <div className="text-xs text-gray-500">
-                            {new Date(order.tanggal).toLocaleDateString('id-ID')}
+                            {order.tanggal ? new Date(order.tanggal).toLocaleDateString('id-ID') : '—'}
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-700 max-w-xs truncate">
+                        <td className="px-2 sm:px-4 py-2 sm:py-4 text-xs sm:text-sm text-gray-700">
                           {order.alamatLengkap || '—'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        <td className="px-2 sm:px-4 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-700">
                           {order.nomorTelepon || '—'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          {order.produk}
+                        <td className="px-2 sm:px-4 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-700">
+                          {order.produk || '—'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                          Rp {Number(order.total).toLocaleString('id-ID')}
+                        <td className="px-2 sm:px-4 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-700">
+                          Rp {order.total ? Number(order.total).toLocaleString('id-ID') : '0'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <td className="px-2 sm:px-4 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium">
                           {order.buktiPembayaran ? (
                             <button
                               onClick={() => handleViewImage(order.buktiPembayaran)}
-                              className="text-amber-600 hover:text-amber-800 transition duration-200 flex items-center space-x-1"
+                              className="text-amber-600 hover:text-amber-800 transition duration-200 flex items-center space-x-1 text-xs sm:text-sm"
                             >
-                              <EyeIcon className="h-5 w-5" />
+                              <EyeIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                               <span>Lihat</span>
                             </button>
                           ) : (
                             <span className="text-gray-500">Tidak ada</span>
                           )}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-2 sm:px-4 py-2 sm:py-4 whitespace-nowrap">
                           <select
-                            value={order.status}
+                            value={order.status || 'Menunggu'}
                             onChange={(e) => handleUpdateStatus(order.id, e.target.value)}
-                            className={getStatusClass(order.status)}
+                            className={getStatusClass(order.status || 'Menunggu')}
                             disabled={user?.role !== 'admin'}
                           >
                             <option value="Menunggu">Menunggu</option>
@@ -289,13 +289,13 @@ const AdminPesanan = () => {
                             <option value="Selesai">Selesai</option>
                           </select>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <td className="px-2 sm:px-4 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium">
                           <button
                             onClick={() => handleDeleteOrder(order.id)}
-                            className="text-red-600 hover:text-red-800 transition duration-200 flex items-center space-x-1"
+                            className="text-red-600 hover:text-red-800 transition duration-200 flex items-center space-x-1 text-xs sm:text-sm"
                             disabled={user?.role !== 'admin'}
                           >
-                            <TrashIcon className="h-5 w-5" />
+                            <TrashIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                             <span>Hapus</span>
                           </button>
                         </td>
@@ -311,13 +311,13 @@ const AdminPesanan = () => {
         {/* Modal for Image Preview */}
         {selectedImage && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-            <div className="bg-white p-6 rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] relative">
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-2xl w-[90vw] sm:max-w-3xl max-h-[90vh] relative">
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition duration-200"
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-600 hover:text-gray-800 transition duration-200"
               >
                 <svg
-                  className="h-6 w-6"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -334,7 +334,7 @@ const AdminPesanan = () => {
               <img
                 src={selectedImage}
                 alt="Bukti Pembayaran"
-                className="max-w-full max-h-[80vh] object-contain rounded-lg"
+                className="max-w-full max-h-[70vh] sm:max-h-[80vh] object-contain rounded-lg"
                 onError={() => setSelectedImage(null)}
               />
             </div>

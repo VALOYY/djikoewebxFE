@@ -228,7 +228,7 @@ const AdminProduk = () => {
               <input
                 type="text"
                 placeholder="Masukkan nama produk"
-                className="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${formErrors.nama ? 'border-red-600' : 'border-gray-300'}"
+                className="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-black ${formErrors.nama ? 'border-red-600' : 'border-black-300'}"
                 value={form.nama}
                 onChange={(e) => setForm({ ...form, nama: e.target.value })}
               />
@@ -243,7 +243,7 @@ const AdminProduk = () => {
               <input
                 type="number"
                 placeholder="Masukkan harga"
-                className="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${formErrors.harga ? 'border-red-600' : 'border-gray-300'}"
+                className="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-black ${formErrors.harga ? 'border-red-600' : 'border-gray-300'}"
                 value={form.harga}
                 onChange={(e) => setForm({ ...form, harga: e.target.value })}
               />
@@ -284,7 +284,7 @@ const AdminProduk = () => {
               </label>
               <textarea
                 placeholder="Masukkan deskripsi produk"
-                className="w-full p-3 border border-gray-300 bg-gray-50 rounded-lg:ring-2 focus:ring-blue-2 500 focus:border-transparent transition-colors"
+                className="w-full p-3 border border-gray-300 bg-gray-50 rounded-lg:ring-2 focus:ring-blue-2 500 focus:border-transparent transition-colors text-black"
                 rows="4"
                 value={form.deskripsi}
                 onChange={(e) => setForm({ ...form, deskripsi: e.target.value })}
